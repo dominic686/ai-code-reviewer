@@ -29,3 +29,10 @@ def divide(a: float, b: float) -> float:
 def power(base: float, exponent: float) -> float:
     """Return base raised to exponent."""
     return base ** exponent
+
+
+def modulo(a: float, b: float) -> float:
+    """Return the remainder of a divided by b."""
+    if b == 0:
+        raise ValueError("Cannot modulo by zero")
+    return a % b
