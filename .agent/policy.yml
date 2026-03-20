@@ -1,0 +1,41 @@
+must_pass:
+  - unit_tests
+  - lint
+  - typecheck
+
+high_risk_patterns:
+  files:
+    - "**/auth/**"
+    - "**/security/**"
+    - "**/payment/**"
+    - "**/migrations/**"
+  keywords:
+    - "password"
+    - "secret"
+    - "api_key"
+    - "token"
+    - "private_key"
+
+disallowed_patterns:
+  - pattern: "eval("
+    reason: "eval() is a security risk"
+  - pattern: "verify=False"
+    reason: "Disables SSL verification"
+  - pattern: "subprocess.shell=True"
+    reason: "Shell injection risk"
+  - pattern: "DEBUG = True"
+    reason: "Debug mode in production"
+  - pattern: "password = "
+    reason: "Hardcoded password detected"
+  - pattern: "api_key = "
+    reason: "Hardcoded API key detected"
+
+test_requirements:
+  - if_changed: "src/"
+    must_change: "tests/"
+    reason: "All src changes need test coverage"
+
+approval_rules:
+  high_risk_needs_approval: true
+  required_approvers:
+    - "CODEOWNER"
